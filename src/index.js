@@ -1,4 +1,12 @@
-import React from 'react';
-import App from './view';
+import React from "react";
+import App from "./view";
+import { Provider } from "react-redux";
+import getStore from "./state/reducers";
 
-export default () => <App/>;
+const store = getStore();
+
+export default () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
