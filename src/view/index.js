@@ -1,50 +1,62 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
+import Button from 'apsl-react-native-button';
+import PropType from 'prop-types';
 
-import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+const App = ({usdPrice, priceRequest, loading}) => (
+    <View style={styles.container}>
+      <Button
+        style={styles.button}
+        onPress={priceRequest}
+        isLoading={loading}
+        activityIndicatorColor="white"
+        textStyle={styles.text}>
+        Get Price
+    </Button>
+      <Text style={styles.price}>
+        {usdPrice}
+      </Text>
+    </View>
+);
 
-const instructions = Platform.select({
-  ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
-  android:
-    "Double tap R on your keyboard to reload,\n" +
-    "Shake or press menu button for dev menu"
-});
+App.propTypes = {
+  usdPrice: PropType.string,
+  priceRequest: PropType.func,
+  loading: PropType.bool
+};
 
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
-    );
-  }
+App.defaultProps = {
+  usdPrice: '5000.4',
+  priceRequest: () => console.log('getPrice'),
+  loading: false
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    flex: 2,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#008080',
+    flexDirection: 'column',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
+  price: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 40
   },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
+  button: {
+    backgroundColor: '#808000',
+    marginLeft: 20,
+    marginRight: 20,
+    borderColor: 'white'
+  },
+  text: {
+    color: 'white',
   }
 });
+
+export default App;
